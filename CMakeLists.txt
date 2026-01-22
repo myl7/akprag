@@ -23,18 +23,22 @@ if(BUILD_TESTING)
     include(GoogleTest)
 endif()
 
-add_library(dcf STATIC src/dcf.c)
+add_library(dcf STATIC src/dcf/dcf.c)
 target_compile_definitions(dcf PUBLIC kLambda=${FSS_kLambda})
 target_include_directories(dcf PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 if(OpenMP_FOUND)
     target_link_libraries(dcf PUBLIC OpenMP::OpenMP_C)
 endif()
 
+add_executable(dcf_benchmark src/dcf.c src/dcf/group/u64.c src/dcf/prg/aes128_mmo.c)
+target_compile_definitions(dcf_benchmark PRIVATE kLambda=${FSS_kLambda} kBlocks=4)
+target_link_libraries(dcf_benchmark PRIVATE dcf OpenSSL::Crypto OpenMP::OpenMP_C)
+
 if(BUILD_TESTING)
     add_executable(
-        dcf_u64_test src/dcf_test.cc
-        src/group/u64.c
-        src/prg/aes128_mmo.c
+        dcf_u64_test src/dcf/dcf_test.cc
+        src/dcf/group/u64.c
+        src/dcf/prg/aes128_mmo.c
     )
     target_compile_definitions(dcf_u64_test PRIVATE -DkBlocks=4)
     target_link_libraries(dcf_u64_test GTest::gtest_main dcf OpenSSL::Crypto)
