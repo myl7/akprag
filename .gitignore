@@ -12,3 +12,4 @@ venv
 # Binary files
 *.png
 *.pdf
+*.pkl
