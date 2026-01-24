@@ -5,3 +5,10 @@
 # Build outputs
 /build
 /cmake-build-*
+
+# Python
+venv
+
+# Binary files
+*.png
+*.pdf
