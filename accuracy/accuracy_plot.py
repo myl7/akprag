@@ -49,7 +49,7 @@ def main():
         ax=ax1,
         marker="+",  # Mark all points
         errorbar="sd", # Show Standard Deviation as the shaded area
-        color="#1f77b4",
+        color="tab:blue",
         linewidth=1,
         markeredgecolor="black",
         markerfacecolor="black",
@@ -66,8 +66,8 @@ def main():
         ax=ax2,
         marker="+",  # Mark all points
         errorbar="sd", # Show Standard Deviation as the shaded area
-        color="#ff7f0e",
         linewidth=1,
+        color="tab:orange",
         markeredgecolor="black",
         markerfacecolor="black",
     )
