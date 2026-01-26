@@ -23,6 +23,8 @@ if(BUILD_TESTING)
     include(GoogleTest)
 endif()
 
+add_compile_options(-O3) # It does improve performance
+
 add_library(dcf STATIC src/dcf/dcf.c)
 target_compile_definitions(dcf PUBLIC kLambda=${FSS_kLambda})
 target_include_directories(dcf PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
@@ -33,6 +35,17 @@ endif()
 add_executable(dcf_benchmark src/dcf.c src/dcf/group/u64.c src/dcf/prg/aes128_mmo.c)
 target_compile_definitions(dcf_benchmark PRIVATE kLambda=${FSS_kLambda} kBlocks=4)
 target_link_libraries(dcf_benchmark PRIVATE dcf OpenSSL::Crypto OpenMP::OpenMP_C)
+
+add_executable(cmp_benchmark src/cmp.c src/dcf/group/u64.c src/dcf/prg/aes128_mmo.c)
+target_compile_definitions(cmp_benchmark PRIVATE kLambda=${FSS_kLambda} kBlocks=4)
+target_link_libraries(cmp_benchmark PRIVATE dcf OpenSSL::Crypto OpenMP::OpenMP_C)
+
+add_executable(dotprod_benchmark src/dotprod.c)
+target_link_libraries(dotprod_benchmark PRIVATE OpenMP::OpenMP_C)
+
+add_executable(retrieval src/retrieval.c src/dcf/group/u64.c src/dcf/prg/aes128_mmo.c)
+target_compile_definitions(retrieval PRIVATE kLambda=${FSS_kLambda} kBlocks=4)
+target_link_libraries(retrieval PRIVATE dcf OpenSSL::Crypto OpenMP::OpenMP_C)
 
 if(BUILD_TESTING)
     add_executable(
