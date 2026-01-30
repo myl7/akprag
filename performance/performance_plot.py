@@ -40,11 +40,11 @@ def main():
     # Process AKPRAG Data
     # First 49 rows (7 variations of N * 7 repeats)
     df_ak_1 = df_ak.iloc[:49].copy()
-    df_ak_1["Method"] = "AKPRAG"
+    df_ak_1["Method"] = "$p^2$RAG"
 
     # Remaining rows (vary k)
     df_ak_2 = df_ak.iloc[49:].copy()
-    df_ak_2["Method"] = "AKPRAG"
+    df_ak_2["Method"] = "$p^2$RAG"
 
     # Process PRAG Data
     # Convert time: from s (measured over 96 runs? or batch 96?) to per-query ms.
@@ -79,7 +79,7 @@ def main():
         data=df_ak_1,
         x="N",
         y="time_ms",
-        label="AKPRAG",
+        label="$p^2$RAG",
         ax=ax1,
         marker="+",
         color="tab:blue",
@@ -117,7 +117,7 @@ def main():
         data=df_ak_2,
         x="k'",
         y="time_ms",
-        label="AKPRAG",
+        label="$p^2$RAG",
         ax=ax2,
         marker="+",
         color="tab:blue",
